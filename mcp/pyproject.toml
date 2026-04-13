@@ -1,0 +1,20 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "dokmatiq-docgen-mcp"
+version = "0.1.0"
+description = "MCP server for the Dokmatiq DocGen document generation API"
+requires-python = ">=3.10"
+license = "MIT"
+dependencies = [
+    "mcp>=1.0.0",
+    "dokmatiq-docgen>=0.1.0",
+]
+
+[project.scripts]
+docgen-mcp = "docgen_mcp.server:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/docgen_mcp"]
