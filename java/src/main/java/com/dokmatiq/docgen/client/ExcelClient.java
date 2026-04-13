@@ -65,7 +65,7 @@ public final class ExcelClient {
                 "sheetIndex", sheetIndex,
                 "hasHeader", hasHeader
         );
-        return transport.requestJson("POST", "/api/excel/to-json", body);
+        return transport.requestJson("POST", "/api/excel/to-json", body, Map.class);
     }
 
     /** Fill an Excel template with data. Returns XLSX bytes. */
@@ -89,6 +89,6 @@ public final class ExcelClient {
     /** Inspect an Excel workbook and return metadata. */
     public Map<String, Object> inspect(String excelBase64) {
         return transport.requestJson("POST", "/api/excel/inspect",
-                Map.of("excelBase64", excelBase64));
+                Map.of("excelBase64", excelBase64), Map.class);
     }
 }
