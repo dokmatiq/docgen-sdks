@@ -630,6 +630,148 @@ def detect_xrechnung(xml: str) -> str:
     return json.dumps(to_dict(result))
 
 
+# ─── Excel ──────────────────────────────────────────────────────────
+
+
+@mcp.tool()
+def generate_excel(request: dict) -> str:
+    """Generate an Excel workbook (.xlsx) from a structured JSON definition.
+
+    The request dict should contain:
+        sheets: List of sheet definitions, each with:
+            name: Sheet tab name
+            columns: Column definitions (header, width, format, align)
+            rows: Data rows (list of dicts with 'values' or 'cells')
+            formulas: List of formula definitions (cell, formula, label)
+            headerFooter: Print header/footer configuration
+            printArea: Print area in A1 notation
+            freezePane: {row, col} for frozen panes
+            headerStyle/dataStyle: Cell styling definitions
+            autoSizeColumns, autoFilter, pageOrientation, fitToPage
+        properties: Document properties (title, author, subject)
+        password: Workbook protection password
+
+    Args:
+        request: Structured JSON definition of the Excel workbook.
+
+    Returns:
+        Base64-encoded XLSX file.
+    """
+    dg = _get_client()
+    xlsx = dg.excel.generate(request)
+    return base64.b64encode(xlsx).decode()
+
+
+@mcp.tool()
+def csv_to_excel(
+    csv_content: str,
+    delimiter: str = ",",
+    has_header: bool = True,
+    sheet_name: str | None = None,
+) -> str:
+    """Convert CSV content into a styled Excel workbook.
+
+    Auto-formats with header styling, auto-filter, frozen header row, and auto-sized columns.
+
+    Args:
+        csv_content: Raw CSV text content.
+        delimiter: CSV delimiter (default: comma).
+        has_header: Whether the first row is a header (default: true).
+        sheet_name: Name for the sheet tab (default: "Data").
+
+    Returns:
+        Base64-encoded XLSX file.
+    """
+    dg = _get_client()
+    xlsx = dg.excel.from_csv(csv_content, delimiter=delimiter, has_header=has_header, sheet_name=sheet_name)
+    return base64.b64encode(xlsx).decode()
+
+
+@mcp.tool()
+def excel_to_csv(
+    excel_base64: str,
+    sheet_index: int = 0,
+    delimiter: str = ",",
+) -> str:
+    """Extract data from an Excel sheet and return it as CSV text.
+
+    Args:
+        excel_base64: Base64-encoded Excel file.
+        sheet_index: Sheet index to extract (0-based, default: 0).
+        delimiter: CSV delimiter (default: comma).
+
+    Returns:
+        CSV text content.
+    """
+    dg = _get_client()
+    return dg.excel.to_csv(excel_base64, sheet_index=sheet_index, delimiter=delimiter)
+
+
+@mcp.tool()
+def excel_to_json(
+    excel_base64: str,
+    sheet_index: int = 0,
+    has_header: bool = True,
+) -> str:
+    """Extract data from an Excel sheet and return structured JSON.
+
+    Returns headers (if present) and typed data rows.
+
+    Args:
+        excel_base64: Base64-encoded Excel file.
+        sheet_index: Sheet index to extract (0-based, default: 0).
+        has_header: Whether the first row is a header (default: true).
+
+    Returns:
+        JSON with sheetName, totalRows, headers, and data array.
+    """
+    dg = _get_client()
+    result = dg.excel.to_json(excel_base64, sheet_index=sheet_index, has_header=has_header)
+    return json.dumps(result)
+
+
+@mcp.tool()
+def fill_excel_template(
+    template_base64: str,
+    values: dict[str, Any] | None = None,
+    tables: dict[str, list[list[Any]]] | None = None,
+    recalculate: bool = True,
+) -> str:
+    """Fill an Excel template with data at named cells and ranges.
+
+    Args:
+        template_base64: Base64-encoded Excel template file.
+        values: Cell values to set (key = cell ref like 'Sheet1!A1' or named range, value = content).
+        tables: Table data to insert at named ranges (key = range name, value = row arrays).
+        recalculate: Recalculate formulas after filling (default: true).
+
+    Returns:
+        Base64-encoded filled XLSX file.
+    """
+    dg = _get_client()
+    xlsx = dg.excel.fill_template(
+        template_base64, values=values, tables=tables, recalculate=recalculate
+    )
+    return base64.b64encode(xlsx).decode()
+
+
+@mcp.tool()
+def inspect_excel(excel_base64: str) -> str:
+    """Inspect an Excel workbook and return metadata.
+
+    Returns sheet names, row/column counts, and named ranges.
+
+    Args:
+        excel_base64: Base64-encoded Excel file.
+
+    Returns:
+        JSON with sheetCount, sheets array, and namedRanges.
+    """
+    dg = _get_client()
+    result = dg.excel.inspect(excel_base64)
+    return json.dumps(result)
+
+
 # ─── Server Entry Point ──────────────────────────────────────────────
 
 

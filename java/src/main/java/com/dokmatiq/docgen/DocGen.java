@@ -43,6 +43,7 @@ public class DocGen implements AutoCloseable {
     private final PreviewClient preview;
     private final ZugferdClient zugferd;
     private final XRechnungClient xrechnung;
+    private final ExcelClient excel;
 
     public DocGen(DocGenConfig config) {
         this.transport = new Transport(config);
@@ -55,6 +56,7 @@ public class DocGen implements AutoCloseable {
         this.preview = new PreviewClient(transport);
         this.zugferd = new ZugferdClient(transport);
         this.xrechnung = new XRechnungClient(transport);
+        this.excel = new ExcelClient(transport);
     }
 
     /** Convenience: create with just an API key. */
@@ -73,6 +75,7 @@ public class DocGen implements AutoCloseable {
     public PreviewClient preview() { return preview; }
     public ZugferdClient zugferd() { return zugferd; }
     public XRechnungClient xrechnung() { return xrechnung; }
+    public ExcelClient excel() { return excel; }
 
     // ── Builder entry points ────────────────────────────────────────
 

@@ -9,6 +9,7 @@ import { PdfToolsClient } from "./clients/pdf-tools.js";
 import { PreviewClient } from "./clients/preview.js";
 import { ZugferdClient } from "./clients/zugferd.js";
 import { XRechnungClient } from "./clients/xrechnung.js";
+import { ExcelClient } from "./clients/excel.js";
 import { DocumentBuilder } from "./builders/document-builder.js";
 import { ComposeBuilder } from "./builders/compose-builder.js";
 import { InvoiceBuilder } from "./builders/invoice-builder.js";
@@ -54,6 +55,8 @@ export class DocGen {
   readonly zugferd: ZugferdClient;
   /** XRechnung operations. */
   readonly xrechnung: XRechnungClient;
+  /** Excel workbook generation and conversion. */
+  readonly excel: ExcelClient;
 
   constructor(config: DocGenConfig) {
     const resolved = resolveConfig(config);
@@ -68,6 +71,7 @@ export class DocGen {
     this.preview = new PreviewClient(this.transport);
     this.zugferd = new ZugferdClient(this.transport);
     this.xrechnung = new XRechnungClient(this.transport);
+    this.excel = new ExcelClient(this.transport);
   }
 
   // ── Builder entry points ──────────────────────────────────────────

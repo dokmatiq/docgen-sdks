@@ -1,6 +1,6 @@
-# DocGen – Document Generation Skill
+# DocGen – Document & Spreadsheet Generation Skill
 
-Generate professional PDF, DOCX, and ODT documents from HTML/Markdown with templates, tables, QR codes, e-invoicing (ZUGFeRD/XRechnung), digital signatures, and more.
+Generate professional PDF, DOCX, ODT documents and Excel spreadsheets from HTML/Markdown with templates, tables, QR codes, e-invoicing (ZUGFeRD/XRechnung), digital signatures, and more.
 
 ## Prerequisites
 
@@ -59,6 +59,15 @@ Set the `DOCGEN_API_KEY` environment variable with your API key.
 - `preview_pdf_page` – Render a PDF page as a PNG image
 - `get_pdf_page_count` – Get total number of pages
 
+### Excel Workbooks
+
+- `generate_excel` – Generate a fully styled Excel workbook from structured JSON (multiple sheets, columns, formulas, styling, headers/footers, freeze panes, print areas, merged cells, named ranges)
+- `csv_to_excel` – Convert CSV to a formatted Excel workbook with auto-filter and styled headers
+- `excel_to_csv` – Extract Excel sheet data as CSV text
+- `excel_to_json` – Extract Excel sheet data as structured JSON with typed values
+- `fill_excel_template` – Fill an Excel template with values at named cells and ranges, with formula recalculation
+- `inspect_excel` – Inspect workbook metadata (sheet names, row/column counts, named ranges)
+
 ### E-Invoice Validation
 
 - `validate_zugferd` – Validate ZUGFeRD/Factur-X PDF compliance
@@ -93,6 +102,12 @@ Payment to IBAN DE89370400440532013000, due in 14 days."
 "Merge part1.pdf and part2.pdf into one document."
 "Extract all text from this PDF."
 "Fill the form fields name=Max Mustermann and date=12.04.2026 in this PDF form."
+
+### Excel generation
+
+"Create an Excel workbook with columns Produkt, Menge, Einzelpreis, Gesamt and 5 rows of sample data, with a SUM formula in the total column, freeze the header, and format prices as #,##0.00 €."
+"Convert this CSV to a formatted Excel file."
+"Fill the 'reporting.xlsx' template with Q1 sales data."
 
 ## Notes
 

@@ -14,6 +14,7 @@ use Dokmatiq\DocGen\Client\PdfToolsClient;
 use Dokmatiq\DocGen\Client\PreviewClient;
 use Dokmatiq\DocGen\Client\SignaturesClient;
 use Dokmatiq\DocGen\Client\TemplatesClient;
+use Dokmatiq\DocGen\Client\ExcelClient;
 use Dokmatiq\DocGen\Client\XRechnungClient;
 use Dokmatiq\DocGen\Client\ZugferdClient;
 use Dokmatiq\DocGen\Internal\FileUtils;
@@ -54,6 +55,7 @@ final class DocGen
     public readonly PreviewClient $preview;
     public readonly ZugferdClient $zugferd;
     public readonly XRechnungClient $xrechnung;
+    public readonly ExcelClient $excel;
 
     public function __construct(
         string $apiKey,
@@ -73,6 +75,7 @@ final class DocGen
         $this->preview    = new PreviewClient($this->transport);
         $this->zugferd    = new ZugferdClient($this->transport);
         $this->xrechnung  = new XRechnungClient($this->transport);
+        $this->excel      = new ExcelClient($this->transport);
     }
 
     /** Alternative constructor from config object. */

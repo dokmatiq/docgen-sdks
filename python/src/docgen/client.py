@@ -16,6 +16,7 @@ from docgen.clients.pdf_tools import PdfToolsClient
 from docgen.clients.preview import PreviewClient
 from docgen.clients.signatures import SignaturesClient
 from docgen.clients.templates import TemplatesClient
+from docgen.clients.excel import ExcelClient
 from docgen.clients.xrechnung import XRechnungClient
 from docgen.clients.zugferd import ZugferdClient
 from docgen.config import DocGenConfig, RetryPolicy
@@ -81,6 +82,7 @@ class DocGen:
         self._preview = PreviewClient(self._transport)
         self._zugferd = ZugferdClient(self._transport)
         self._xrechnung = XRechnungClient(self._transport)
+        self._excel = ExcelClient(self._transport)
 
     # --- Sub-Clients ---
 
@@ -128,6 +130,11 @@ class DocGen:
     def xrechnung(self) -> XRechnungClient:
         """XRechnung e-invoice operations."""
         return self._xrechnung
+
+    @property
+    def excel(self) -> ExcelClient:
+        """Excel workbook generation and conversion."""
+        return self._excel
 
     # --- Builder Entry Points ---
 
