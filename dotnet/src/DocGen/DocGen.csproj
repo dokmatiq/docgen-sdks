@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>Dokmatiq.DocGen</RootNamespace>
+    <AssemblyName>Dokmatiq.DocGen</AssemblyName>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LangVersion>12</LangVersion>
+
+    <!-- NuGet package metadata -->
+    <PackageId>Dokmatiq.DocGen</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>Dokmatiq</Authors>
+    <Company>Dokmatiq</Company>
+    <Description>Official .NET SDK for the DocGen document generation platform. Generate PDFs, DOCX, Excel workbooks, handle e-invoicing (ZUGFeRD/XRechnung), digital signatures, and more.</Description>
+    <PackageTags>pdf;docx;excel;document-generation;zugferd;xrechnung;e-invoice</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/dokmatiq/docgen-sdks</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/dokmatiq/docgen-sdks</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Text.Json" Version="8.0.5" />
+  </ItemGroup>
+
+</Project>

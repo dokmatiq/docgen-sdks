@@ -10,6 +10,9 @@ typescript/node_modules/
 typescript/dist/
 java/target/
 php/vendor/
+dotnet/**/bin/
+dotnet/**/obj/
+dotnet/**/*.nupkg
 
 # IDE
 .idea/
