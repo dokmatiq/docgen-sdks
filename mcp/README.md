@@ -130,6 +130,17 @@ Set the API key in your environment or `.env` file.
 | `preview_pdf_page` | Render page as PNG image |
 | `get_pdf_page_count` | Get total page count |
 
+### Excel Workbooks
+
+| Tool | Description |
+|------|-------------|
+| `generate_excel` | Generate styled XLSX from structured JSON (sheets, columns, formulas, styling, freeze panes) |
+| `csv_to_excel` | Convert CSV to formatted Excel with auto-filter and styled headers |
+| `excel_to_csv` | Extract Excel sheet data as CSV |
+| `excel_to_json` | Extract Excel sheet data as structured JSON with typed values |
+| `fill_excel_template` | Fill Excel template with values at named cells and ranges |
+| `inspect_excel` | Inspect workbook metadata (sheet names, row/column counts, named ranges) |
+
 ### E-Invoicing
 
 | Tool | Description |
