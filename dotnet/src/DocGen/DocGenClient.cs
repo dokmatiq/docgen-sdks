@@ -55,6 +55,9 @@ public sealed class DocGenClient : IDisposable
     /// <summary>Excel workbook generation and conversion.</summary>
     public ExcelClient Excel { get; }
 
+    /// <summary>AI-powered receipt and ticket data extraction.</summary>
+    public ReceiptsClient Receipts { get; }
+
     /// <summary>
     /// Create a new DocGen client with full configuration.
     /// </summary>
@@ -71,6 +74,7 @@ public sealed class DocGenClient : IDisposable
         Zugferd = new ZugferdClient(_transport);
         XRechnung = new XRechnungClient(_transport);
         Excel = new ExcelClient(_transport);
+        Receipts = new ReceiptsClient(_transport);
     }
 
     /// <summary>

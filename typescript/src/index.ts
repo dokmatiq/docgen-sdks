@@ -100,3 +100,14 @@ export { PdfToolsClient } from "./clients/pdf-tools.js";
 export { PreviewClient } from "./clients/preview.js";
 export { ZugferdClient } from "./clients/zugferd.js";
 export { XRechnungClient } from "./clients/xrechnung.js";
+export { ReceiptsClient } from "./clients/receipts.js";
+export type {
+  VatBreakdown,
+  LineItem,
+  ReceiptData,
+  ReceiptExtractionResult,
+  BatchItemResult,
+  BatchExtractionResult,
+  ReceiptJob,
+  ReceiptToDocumentResult,
+} from "./clients/receipts.js";

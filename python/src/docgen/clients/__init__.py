@@ -9,6 +9,7 @@ from docgen.clients.pdf_tools import PdfToolsClient
 from docgen.clients.preview import PreviewClient
 from docgen.clients.zugferd import ZugferdClient
 from docgen.clients.excel import ExcelClient
+from docgen.clients.receipts import ReceiptsClient
 from docgen.clients.xrechnung import XRechnungClient
 
 __all__ = [
@@ -18,6 +19,7 @@ __all__ = [
     "PdfFormsClient",
     "PdfToolsClient",
     "PreviewClient",
+    "ReceiptsClient",
     "SignaturesClient",
     "TemplatesClient",
     "XRechnungClient",
