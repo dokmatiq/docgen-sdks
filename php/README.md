@@ -222,6 +222,55 @@ $dg = new DocGen(
 );
 ```
 
+## Excel Workbooks
+
+```php
+// Generate XLSX from structured data
+$xlsx = $dg->excel->generate([
+    'sheets' => [[
+        'name' => 'Sales',
+        'columns' => [
+            ['header' => 'Month', 'width' => 15],
+            ['header' => 'Revenue', 'width' => 12, 'format' => '#,##0.00 €'],
+        ],
+        'rows' => [
+            ['values' => ['January', 42500.0]],
+            ['values' => ['February', 38900.0]],
+        ],
+    ]],
+]);
+file_put_contents('sales.xlsx', $xlsx);
+
+// CSV → XLSX
+$xlsx = $dg->excel->fromCsv($csvContent);
+
+// XLSX → JSON
+$data = $dg->excel->toJson($excelBase64);
+```
+
+## Receipt Recognition (AI)
+
+Extract structured data from receipts, tickets, and invoices using AI vision:
+
+```php
+// Extract data from a receipt image
+$result = $dg->receipts->extract('/path/to/kassenbeleg.jpg');
+echo $result['receiptData']['totalAmount'];   // 42.50
+echo $result['receiptData']['receiptType'];    // "cash_receipt"
+echo $result['receiptData']['skr03Account'];   // "4650"
+
+// Export as DATEV-compatible CSV
+$csv = $dg->receipts->exportCsv([$result['receiptData']]);
+
+// Async extraction with webhook
+$job = $dg->receipts->extractAsync('/path/to/beleg.jpg',
+    callbackUrl: 'https://my-app.com/webhooks/receipts',
+    callbackSecret: 'my-secret',
+);
+```
+
+> **Note:** Requires AI processing consent in the [Developer Portal](https://developer.dokmatiq.com) settings (GDPR).
+
 ## File Input
 
 All methods that accept PDF/file input support both file paths and raw bytes:

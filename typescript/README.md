@@ -162,6 +162,63 @@ const payload = verifyWebhook(req.body, req.headers['x-docgen-signature'], secre
 console.log(`Job ${payload.jobId} completed: ${payload.status}`);
 ```
 
+## Excel Workbooks
+
+```typescript
+import { DocGen } from '@dokmatiq/docgen';
+
+const dg = new DocGen({ apiKey: 'dk_live_xxx' });
+
+// Generate XLSX from structured data
+const xlsx = await dg.excel.generate({
+  sheets: [{
+    name: 'Sales',
+    columns: [
+      { header: 'Month', width: 15 },
+      { header: 'Revenue', width: 12, format: '#,##0.00 €' },
+    ],
+    rows: [
+      { values: ['January', 42500.0] },
+      { values: ['February', 38900.0] },
+    ],
+  }],
+});
+
+// CSV → XLSX
+const fromCsv = await dg.excel.fromCsv(csvContent);
+
+// XLSX → JSON
+const data = await dg.excel.toJson(excelBase64);
+```
+
+## Receipt Recognition (AI)
+
+Extract structured data from receipts, tickets, and invoices using AI vision:
+
+```typescript
+import { DocGen } from '@dokmatiq/docgen';
+import { readFileSync } from 'fs';
+
+const dg = new DocGen({ apiKey: 'dk_live_xxx' });
+
+// Extract data from a receipt image
+const receipt = await dg.receipts.extract(readFileSync('kassenbeleg.jpg'), 'kassenbeleg.jpg');
+console.log(receipt.receiptData?.totalAmount);  // 42.50
+console.log(receipt.receiptData?.receiptType);  // "cash_receipt"
+console.log(receipt.receiptData?.skr03Account); // "4650"
+
+// Export multiple receipts as DATEV-compatible CSV
+const csv = await dg.receipts.exportCsv([receipt.receiptData!]);
+
+// Async extraction with webhook notification
+const job = await dg.receipts.extractAsync(fileBuffer, 'beleg.jpg', {
+  callbackUrl: 'https://my-app.com/webhooks/receipts',
+  callbackSecret: 'my-secret',
+});
+```
+
+> **Note:** Requires AI processing consent in the [Developer Portal](https://developer.dokmatiq.com) settings (GDPR).
+
 ## Sub-Clients
 
 | Client | Access | Description |
@@ -175,6 +232,8 @@ console.log(`Job ${payload.jobId} completed: ${payload.status}`);
 | `dg.preview` | Page rendering as images |
 | `dg.zugferd` | ZUGFeRD embed, extract, validate |
 | `dg.xrechnung` | XRechnung generate, parse, validate, transform |
+| `dg.excel` | Excel workbook generation and conversion |
+| `dg.receipts` | AI-powered receipt/ticket extraction and export |
 
 ## Requirements
 

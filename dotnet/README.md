@@ -30,6 +30,7 @@ File.WriteAllBytes("hello.pdf", pdf);
 | **Document Generation** | HTML, Markdown, templates → PDF, DOCX, ODT |
 | **Multi-Part Composition** | Combine multiple document parts into one |
 | **Excel Workbooks** | Generate XLSX with styling, formulas, charts |
+| **Receipt Recognition** | AI-powered receipt/ticket data extraction |
 | **PDF Tools** | Merge, split, rotate, extract text, PDF/A |
 | **Digital Signatures** | Sign and verify PDFs with PKCS#12 certificates |
 | **PDF Forms** | Inspect and fill form fields |
@@ -108,6 +109,30 @@ byte[] fromCsv = dg.Excel.FromCsv(csvContent);
 // Excel → JSON
 var data = dg.Excel.ToJson(excelBase64);
 ```
+
+## Receipt Recognition (AI)
+
+Extract structured data from receipts, tickets, and invoices using AI vision:
+
+```csharp
+// Extract data from a receipt image
+byte[] imageBytes = File.ReadAllBytes("kassenbeleg.jpg");
+var result = dg.Receipts.Extract(imageBytes, "kassenbeleg.jpg");
+var data = (Dictionary<string, object?>)result["receiptData"]!;
+Console.WriteLine(data["totalAmount"]);   // 42.50
+Console.WriteLine(data["receiptType"]);    // "cash_receipt"
+Console.WriteLine(data["skr03Account"]);   // "4650"
+
+// Export as DATEV-compatible CSV
+byte[] csv = dg.Receipts.ExportCsv(new List<Dictionary<string, object?>> { data });
+
+// Async extraction with webhook
+var job = dg.Receipts.ExtractAsync(imageBytes, "beleg.jpg",
+    callbackUrl: "https://my-app.com/webhooks/receipts",
+    callbackSecret: "my-secret");
+```
+
+> **Note:** Requires AI processing consent in the [Developer Portal](https://developer.dokmatiq.com) settings (GDPR).
 
 ## PDF Tools
 

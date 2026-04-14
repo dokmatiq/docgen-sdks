@@ -169,6 +169,63 @@ payload = verify_webhook(request.body, request.headers["X-DocGen-Signature"], se
 print(f"Job {payload.job_id} completed: {payload.status}")
 ```
 
+## Excel Workbooks
+
+```python
+from docgen import DocGen
+
+with DocGen(api_key="dk_live_xxx") as dg:
+    # Generate XLSX from structured data
+    xlsx = dg.excel.generate({
+        "sheets": [{
+            "name": "Sales",
+            "columns": [
+                {"header": "Month", "width": 15},
+                {"header": "Revenue", "width": 12, "format": "#,##0.00 €"},
+            ],
+            "rows": [
+                {"values": ["January", 42500.0]},
+                {"values": ["February", 38900.0]},
+            ],
+        }],
+    })
+
+    # CSV → XLSX
+    from_csv = dg.excel.from_csv(csv_content)
+
+    # XLSX → JSON
+    data = dg.excel.to_json(excel_base64)
+```
+
+## Receipt Recognition (AI)
+
+Extract structured data from receipts, tickets, and invoices using AI vision:
+
+```python
+from pathlib import Path
+from docgen import DocGen
+
+with DocGen(api_key="dk_live_xxx") as dg:
+    # Extract data from a receipt image
+    file_bytes = Path("kassenbeleg.jpg").read_bytes()
+    result = dg.receipts.extract(file_bytes, "kassenbeleg.jpg", "image/jpeg")
+    print(result["receiptData"]["totalAmount"])   # 42.50
+    print(result["receiptData"]["receiptType"])    # "cash_receipt"
+    print(result["receiptData"]["skr03Account"])   # "4650"
+
+    # Export as DATEV-compatible CSV
+    csv = dg.receipts.export_csv([result["receiptData"]])
+
+    # Async extraction with webhook
+    job = dg.receipts.extract_async(
+        file_bytes, "beleg.jpg", "image/jpeg",
+        callback_url="https://my-app.com/webhooks/receipts",
+        callback_secret="my-secret",
+    )
+```
+
+> **Note:** Requires AI processing consent in the [Developer Portal](https://developer.dokmatiq.com) settings (GDPR).
+
 ## Sub-Clients
 
 | Client | Access | Description |
@@ -182,6 +239,8 @@ print(f"Job {payload.job_id} completed: {payload.status}")
 | `dg.preview` | Page rendering as images |
 | `dg.zugferd` | ZUGFeRD embed, extract, validate |
 | `dg.xrechnung` | XRechnung generate, parse, validate, transform |
+| `dg.excel` | Excel workbook generation and conversion |
+| `dg.receipts` | AI-powered receipt/ticket extraction and export |
 
 ## Requirements
 

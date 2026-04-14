@@ -161,6 +161,59 @@ WebhookPayload payload = WebhookVerifier.verify(requestBody, signatureHeader, se
 System.out.println("Job " + payload.jobId() + " completed: " + payload.status());
 ```
 
+## Excel Workbooks
+
+```java
+try (var dg = new DocGen("dk_live_xxx")) {
+    // Generate XLSX from structured data
+    byte[] xlsx = dg.excel().generate(Map.of(
+        "sheets", List.of(Map.of(
+            "name", "Sales",
+            "columns", List.of(
+                Map.of("header", "Month", "width", 15),
+                Map.of("header", "Revenue", "width", 12, "format", "#,##0.00 €")
+            ),
+            "rows", List.of(
+                Map.of("values", List.of("January", 42500.0)),
+                Map.of("values", List.of("February", 38900.0))
+            )
+        ))
+    ));
+
+    // CSV → XLSX
+    byte[] fromCsv = dg.excel().fromCsv(csvContent);
+
+    // XLSX → JSON
+    Map<String, Object> data = dg.excel().toJson(excelBase64);
+}
+```
+
+## Receipt Recognition (AI)
+
+Extract structured data from receipts, tickets, and invoices using AI vision:
+
+```java
+try (var dg = new DocGen("dk_live_xxx")) {
+    // Extract data from a receipt image
+    byte[] imageBytes = Files.readAllBytes(Path.of("kassenbeleg.jpg"));
+    Map<String, Object> result = dg.receipts().extract(imageBytes, "kassenbeleg.jpg");
+
+    Map<String, Object> data = (Map<String, Object>) result.get("receiptData");
+    System.out.println(data.get("totalAmount"));   // 42.50
+    System.out.println(data.get("receiptType"));    // "cash_receipt"
+    System.out.println(data.get("skr03Account"));   // "4650"
+
+    // Export as DATEV-compatible CSV
+    byte[] csv = dg.receipts().exportCsv(List.of(data));
+
+    // Async extraction with webhook
+    Map<String, Object> job = dg.receipts().extractAsync(imageBytes, "beleg.jpg",
+        "https://my-app.com/webhooks/receipts", "my-secret");
+}
+```
+
+> **Note:** Requires AI processing consent in the [Developer Portal](https://developer.dokmatiq.com) settings (GDPR).
+
 ## Sub-Clients
 
 | Client | Access | Description |
@@ -174,6 +227,8 @@ System.out.println("Job " + payload.jobId() + " completed: " + payload.status())
 | `dg.preview()` | Page rendering as images |
 | `dg.zugferd()` | ZUGFeRD embed, extract, validate |
 | `dg.xrechnung()` | XRechnung generate, parse, validate, transform |
+| `dg.excel()` | Excel workbook generation and conversion |
+| `dg.receipts()` | AI-powered receipt/ticket extraction and export |
 
 ## Requirements
 
