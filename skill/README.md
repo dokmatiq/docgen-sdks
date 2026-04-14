@@ -33,10 +33,15 @@ With this skill active, Claude Code can:
 - Generate PDFs from HTML or Markdown
 - Use document templates with field replacement
 - Create ZUGFeRD-compliant e-invoices
+- Validate, parse, and transform XRechnung XML
 - Merge, split, and manipulate PDFs
 - Fill PDF forms
 - Digitally sign documents
 - Preview PDF pages as images
+- Generate styled Excel workbooks from JSON, CSV, or templates
+- Convert between Excel, CSV, and JSON formats
+- Extract structured data from receipt and invoice images (AI-powered)
+- Map receipts to SKR03/04 accounts with DATEV-compatible export
 
 ## License
 
