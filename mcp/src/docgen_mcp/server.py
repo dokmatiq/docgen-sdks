@@ -772,6 +772,161 @@ def inspect_excel(excel_base64: str) -> str:
     return json.dumps(result)
 
 
+# ─── Receipt Recognition ────────────────────────────────────────────
+
+
+@mcp.tool()
+def extract_receipt(image_base64: str, filename: str = "receipt.jpg", content_type: str = "image/jpeg") -> str:
+    """Extract structured data from a receipt or invoice image using AI.
+
+    Returns vendor, date, totals (gross/net/VAT per rate), line items,
+    currency, payment method, SKR03/04 account, category, and confidence score.
+
+    Args:
+        image_base64: Base64-encoded receipt image (JPEG, PNG) or PDF.
+        filename: Original filename (helps with format detection).
+        content_type: MIME type (default: image/jpeg). Use application/pdf for PDF receipts.
+
+    Returns:
+        JSON with extracted receipt data.
+    """
+    dg = _get_client()
+    file_bytes = base64.b64decode(image_base64)
+    result = dg.receipts.extract(file_bytes, filename, content_type)
+    return json.dumps(result, default=str)
+
+
+@mcp.tool()
+def extract_receipt_async(
+    image_base64: str,
+    filename: str = "receipt.jpg",
+    content_type: str = "image/jpeg",
+    callback_url: str | None = None,
+) -> str:
+    """Submit a receipt for async AI extraction. Returns a job ID for polling.
+
+    Use get_receipt_job to check status and get_receipt_job_result for the result.
+
+    Args:
+        image_base64: Base64-encoded receipt image or PDF.
+        filename: Original filename.
+        content_type: MIME type (default: image/jpeg).
+        callback_url: Optional webhook URL to receive the result.
+
+    Returns:
+        JSON with jobId and status.
+    """
+    dg = _get_client()
+    file_bytes = base64.b64decode(image_base64)
+    result = dg.receipts.extract_async(file_bytes, filename, content_type, callback_url=callback_url)
+    return json.dumps(result, default=str)
+
+
+@mcp.tool()
+def get_receipt_job(job_id: str) -> str:
+    """Check the status of an async receipt extraction job.
+
+    Args:
+        job_id: The job ID returned by extract_receipt_async.
+
+    Returns:
+        JSON with job status (PENDING, PROCESSING, COMPLETED, FAILED).
+    """
+    dg = _get_client()
+    result = dg.receipts.get_job(job_id)
+    return json.dumps(result, default=str)
+
+
+@mcp.tool()
+def get_receipt_job_result(job_id: str) -> str:
+    """Get the extraction result of a completed async receipt job.
+
+    Args:
+        job_id: The job ID returned by extract_receipt_async.
+
+    Returns:
+        JSON with extracted receipt data.
+    """
+    dg = _get_client()
+    result = dg.receipts.get_job_result(job_id)
+    return json.dumps(result, default=str)
+
+
+@mcp.tool()
+def list_receipt_jobs() -> str:
+    """List all async receipt extraction jobs.
+
+    Returns:
+        JSON array of job info objects.
+    """
+    dg = _get_client()
+    result = dg.receipts.list_jobs()
+    return json.dumps(result, default=str)
+
+
+@mcp.tool()
+def receipt_to_document(
+    image_base64: str,
+    filename: str = "receipt.jpg",
+    content_type: str = "image/jpeg",
+    output_format: str = "PDF",
+    title: str = "Spesenbeleg",
+    template_name: str | None = None,
+) -> str:
+    """Extract receipt data and generate an expense report document.
+
+    Combines AI extraction with document generation in a single step.
+
+    Args:
+        image_base64: Base64-encoded receipt image or PDF.
+        filename: Original filename.
+        content_type: MIME type (default: image/jpeg).
+        output_format: Output format – PDF, DOCX, or ODT (default: PDF).
+        title: Document title (default: "Spesenbeleg").
+        template_name: Optional template for the expense report layout.
+
+    Returns:
+        JSON with extracted data and base64-encoded document.
+    """
+    dg = _get_client()
+    file_bytes = base64.b64decode(image_base64)
+    result = dg.receipts.to_document(
+        file_bytes, filename, content_type,
+        format=output_format, template_name=template_name, title=title,
+    )
+    return json.dumps(result, default=str)
+
+
+@mcp.tool()
+def export_receipts_csv(receipts: list[dict]) -> str:
+    """Export extracted receipt data as DATEV-compatible CSV.
+
+    Args:
+        receipts: List of receipt extraction results (from extract_receipt).
+
+    Returns:
+        Base64-encoded CSV file.
+    """
+    dg = _get_client()
+    csv_bytes = dg.receipts.export_csv(receipts)
+    return base64.b64encode(csv_bytes).decode()
+
+
+@mcp.tool()
+def export_receipts_xlsx(receipts: list[dict]) -> str:
+    """Export extracted receipt data as Excel workbook (XLSX).
+
+    Args:
+        receipts: List of receipt extraction results (from extract_receipt).
+
+    Returns:
+        Base64-encoded XLSX file.
+    """
+    dg = _get_client()
+    xlsx_bytes = dg.receipts.export_xlsx(receipts)
+    return base64.b64encode(xlsx_bytes).decode()
+
+
 # ─── Server Entry Point ──────────────────────────────────────────────
 
 

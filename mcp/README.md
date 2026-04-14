@@ -140,6 +140,19 @@ Set the API key in your environment or `.env` file.
 | `parse_xrechnung` | Parse XRechnung into structured data |
 | `detect_xrechnung` | Detect XRechnung format |
 
+### Receipt Recognition (AI-Powered)
+
+| Tool | Description |
+|------|-------------|
+| `extract_receipt` | Extract structured data from receipt image (vendor, totals, VAT, line items, SKR03/04 account) |
+| `extract_receipt_async` | Submit receipt for async extraction with optional webhook |
+| `get_receipt_job` | Check async extraction job status |
+| `get_receipt_job_result` | Get extraction result of completed job |
+| `list_receipt_jobs` | List all async receipt jobs |
+| `receipt_to_document` | Extract receipt and generate expense report (PDF/DOCX/ODT) |
+| `export_receipts_csv` | Export receipts as DATEV-compatible CSV |
+| `export_receipts_xlsx` | Export receipts as Excel workbook |
+
 ## Example Prompts
 
 Once connected, you can ask Claude:
@@ -149,6 +162,9 @@ Once connected, you can ask Claude:
 - "Merge these two PDFs together"
 - "Extract the text from this PDF"
 - "Fill the form fields name=Max and date=12.04.2026 in this PDF"
+- "Extract the data from this receipt image -- I need vendor, total, and VAT breakdown"
+- "Analyze these receipts and export them as a DATEV CSV"
+- "Turn this receipt photo into an expense report PDF"
 
 ## License
 

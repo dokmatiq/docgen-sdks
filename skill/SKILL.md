@@ -1,6 +1,6 @@
-# DocGen – Document & Spreadsheet Generation Skill
+# DocGen – Document Generation, Excel, & Receipt Recognition Skill
 
-Generate professional PDF, DOCX, ODT documents and Excel spreadsheets from HTML/Markdown with templates, tables, QR codes, e-invoicing (ZUGFeRD/XRechnung), digital signatures, and more.
+Generate professional PDF, DOCX, ODT documents and Excel spreadsheets from HTML/Markdown with templates, tables, QR codes, e-invoicing (ZUGFeRD/XRechnung), digital signatures, AI-powered receipt recognition, and more.
 
 ## Prerequisites
 
@@ -68,6 +68,17 @@ Set the `DOCGEN_API_KEY` environment variable with your API key.
 - `fill_excel_template` – Fill an Excel template with values at named cells and ranges, with formula recalculation
 - `inspect_excel` – Inspect workbook metadata (sheet names, row/column counts, named ranges)
 
+### Receipt Recognition (AI-Powered)
+
+- `extract_receipt` – Extract structured data from a receipt or invoice image (vendor, date, totals, line items, SKR03/04 account, category, confidence score)
+- `extract_receipt_async` – Submit receipt for async extraction with optional webhook callback
+- `get_receipt_job` – Check async extraction job status
+- `get_receipt_job_result` – Get extraction result of a completed async job
+- `list_receipt_jobs` – List all async receipt extraction jobs
+- `receipt_to_document` – Extract receipt data and generate an expense report document (PDF/DOCX/ODT) in one step
+- `export_receipts_csv` – Export extracted receipts as DATEV-compatible CSV
+- `export_receipts_xlsx` – Export extracted receipts as Excel workbook
+
 ### E-Invoice Validation
 
 - `validate_zugferd` – Validate ZUGFeRD/Factur-X PDF compliance
@@ -109,6 +120,12 @@ Payment to IBAN DE89370400440532013000, due in 14 days."
 "Convert this CSV to a formatted Excel file."
 "Fill the 'reporting.xlsx' template with Q1 sales data."
 
+### Receipt recognition
+
+"Extract data from this receipt image – I need vendor, total, and VAT breakdown."
+"Analyze these 5 receipts and export them as a DATEV-compatible CSV."
+"Turn this receipt photo into an expense report PDF."
+
 ## Notes
 
 - All file inputs/outputs use base64 encoding for binary data
@@ -116,3 +133,5 @@ Payment to IBAN DE89370400440532013000, due in 14 days."
 - Invoices automatically embed ZUGFeRD XML for e-invoicing compliance
 - Digital signatures require pre-uploaded PKCS#12 certificates
 - Unit codes follow UN/ECE Recommendation 20: C62=piece, HUR=hour, DAY=day, KGM=kg
+- Receipt recognition requires AI processing consent enabled in the Dokmatiq portal (GDPR)
+- Supported receipt formats: JPEG, PNG, PDF (scans and photos)
