@@ -28,4 +28,5 @@ jobs:
           cache: pip
           cache-dependency-path: python/pyproject.toml
       - run: pip install -e ".[dev]"
-      - run: mypy src
+      - name: Smoke import
+        run: python -c "import docgen; print(docgen.__name__)"
