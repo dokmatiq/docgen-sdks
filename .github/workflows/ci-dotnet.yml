@@ -1,0 +1,26 @@
+name: CI .NET
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "dotnet/**"
+      - ".github/workflows/ci-dotnet.yml"
+  pull_request:
+    paths:
+      - "dotnet/**"
+      - ".github/workflows/ci-dotnet.yml"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: dotnet
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+      - run: dotnet restore src/DocGen/DocGen.csproj
+      - run: dotnet build src/DocGen/DocGen.csproj --configuration Release --no-restore

@@ -1,0 +1,30 @@
+name: CI Java
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "java/**"
+      - ".github/workflows/ci-java.yml"
+  pull_request:
+    paths:
+      - "java/**"
+      - ".github/workflows/ci-java.yml"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: java
+    strategy:
+      matrix:
+        java-version: ["17", "21"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: ${{ matrix.java-version }}
+          cache: maven
+      - run: mvn -B compile
