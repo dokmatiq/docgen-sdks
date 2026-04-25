@@ -1,5 +1,7 @@
 # Dokmatiq DocGen TypeScript SDK
 
+[![CI](https://github.com/dokmatiq/docgen-sdks/actions/workflows/ci-typescript.yml/badge.svg)](https://github.com/dokmatiq/docgen-sdks/actions/workflows/ci-typescript.yml)
+
 TypeScript/Node.js SDK for the [Dokmatiq DocGen](https://dokmatiq.com) document generation API. Generate PDF, DOCX, and ODT documents from HTML/Markdown with templates, e-invoicing (ZUGFeRD/XRechnung), digital signatures, and more.
 
 ## Installation

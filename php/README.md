@@ -1,5 +1,7 @@
 # DocGen PHP SDK
 
+[![CI](https://github.com/dokmatiq/docgen-sdks/actions/workflows/ci-php.yml/badge.svg)](https://github.com/dokmatiq/docgen-sdks/actions/workflows/ci-php.yml)
+
 Official PHP SDK for the [Dokmatiq DocGen](https://dokmatiq.com) document generation API.
 
 ## Requirements

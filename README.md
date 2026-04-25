@@ -1,5 +1,11 @@
 # Dokmatiq DocGen SDKs
 
+[![CI TypeScript](https://github.com/dokmatiq/docgen-sdks/actions/workflows/ci-typescript.yml/badge.svg)](https://github.com/dokmatiq/docgen-sdks/actions/workflows/ci-typescript.yml)
+[![CI Python](https://github.com/dokmatiq/docgen-sdks/actions/workflows/ci-python.yml/badge.svg)](https://github.com/dokmatiq/docgen-sdks/actions/workflows/ci-python.yml)
+[![CI Java](https://github.com/dokmatiq/docgen-sdks/actions/workflows/ci-java.yml/badge.svg)](https://github.com/dokmatiq/docgen-sdks/actions/workflows/ci-java.yml)
+[![CI .NET](https://github.com/dokmatiq/docgen-sdks/actions/workflows/ci-dotnet.yml/badge.svg)](https://github.com/dokmatiq/docgen-sdks/actions/workflows/ci-dotnet.yml)
+[![CI PHP](https://github.com/dokmatiq/docgen-sdks/actions/workflows/ci-php.yml/badge.svg)](https://github.com/dokmatiq/docgen-sdks/actions/workflows/ci-php.yml)
+
 Official SDKs for the [Dokmatiq DocGen API](https://developer.dokmatiq.com) -- document generation, e-invoicing, Excel workbooks, receipt recognition, and PDF tools in a single API.
 
 ## SDKs

@@ -2,6 +2,7 @@
 
 Official .NET SDK for the [DocGen](https://dokmatiq.com) document generation platform.
 
+[![CI](https://github.com/dokmatiq/docgen-sdks/actions/workflows/ci-dotnet.yml/badge.svg)](https://github.com/dokmatiq/docgen-sdks/actions/workflows/ci-dotnet.yml)
 [![NuGet](https://img.shields.io/nuget/v/Dokmatiq.DocGen)](https://www.nuget.org/packages/Dokmatiq.DocGen)
 [![.NET 8+](https://img.shields.io/badge/.NET-8.0%2B-blue)](https://dotnet.microsoft.com)
 
