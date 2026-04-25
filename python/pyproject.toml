@@ -38,7 +38,7 @@ dev = [
 
 [project.urls]
 Homepage = "https://github.com/dokmatiq/docgen-sdks"
-Documentation = "https://docs.dokmatiq.com/sdks/python"
+Documentation = "https://docs.dokmatiq.com"
 Repository = "https://github.com/dokmatiq/docgen-sdks"
 
 [tool.hatch.build.targets.wheel]

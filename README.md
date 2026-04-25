@@ -107,7 +107,7 @@ const xlsx = await dg.excel.generate({
 ## Documentation
 
 - [Developer Portal](https://developer.dokmatiq.com) -- Sign up, API keys, usage dashboard
-- [API Reference](https://api.dokmatiq.com/swagger-ui.html) -- Full REST API docs
+- [API Reference](https://docs.dokmatiq.com) -- Full REST API docs
 - [Website](https://dokmatiq.com) -- Product overview
 
 Each SDK has its own detailed README with full examples:
