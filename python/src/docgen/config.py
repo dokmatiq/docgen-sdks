@@ -32,7 +32,7 @@ class DocGenConfig:
 
     Args:
         api_key: API key for authentication (X-API-Key header).
-        base_url: Base URL of the DocGen API (default: http://localhost:8080).
+        base_url: Base URL of the DocGen API (default: https://api.dokmatiq.com).
         timeout: Request timeout in seconds (default: 30).
         retry: Retry policy for transient failures.
         validate_mode: Validation mode sent via X-DocGen-Validate header.
@@ -42,7 +42,7 @@ class DocGenConfig:
     """
 
     api_key: str
-    base_url: str = "http://localhost:8080"
+    base_url: str = "https://api.dokmatiq.com"
     timeout: float = 30.0
     retry: RetryPolicy = field(default_factory=RetryPolicy)
     validate_mode: str | None = None
