@@ -39,6 +39,18 @@
   ],
   "author": "Dokmatiq GmbH",
   "license": "MIT",
+  "homepage": "https://github.com/dokmatiq/docgen-sdks/tree/main/typescript#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dokmatiq/docgen-sdks.git",
+    "directory": "typescript"
+  },
+  "bugs": {
+    "url": "https://github.com/dokmatiq/docgen-sdks/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "engines": {
     "node": ">=18.0.0"
   },
