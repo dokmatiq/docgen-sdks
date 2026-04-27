@@ -1,0 +1,36 @@
+name: Sync PHP SDK to docgen-php
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "php/**"
+      - ".github/workflows/sync-php-subtree.yml"
+
+concurrency:
+  group: sync-php-subtree
+  cancel-in-progress: false
+
+jobs:
+  split:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Split php/ into standalone history
+        uses: splitsh/lite-action@v2
+        id: split
+        with:
+          prefix: php
+          target: refs/heads/main
+          origin: refs/heads/main
+
+      - name: Push to dokmatiq/docgen-php
+        env:
+          GH_TOKEN: ${{ secrets.DOCGEN_PHP_PUSH_TOKEN }}
+          SPLIT_SHA: ${{ steps.split.outputs.SHA }}
+        run: |
+          git push "https://x-access-token:${GH_TOKEN}@github.com/dokmatiq/docgen-php.git" \
+            "${SPLIT_SHA}:refs/heads/main" --force
