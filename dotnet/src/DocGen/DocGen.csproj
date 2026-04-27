@@ -19,7 +19,12 @@
     <PackageProjectUrl>https://github.com/dokmatiq/docgen-sdks</PackageProjectUrl>
     <RepositoryUrl>https://github.com/dokmatiq/docgen-sdks</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="System.Text.Json" Version="8.0.5" />
