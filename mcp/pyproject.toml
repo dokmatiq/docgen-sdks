@@ -4,14 +4,34 @@ build-backend = "hatchling.build"
 
 [project]
 name = "dokmatiq-docgen-mcp"
-version = "0.1.0"
+version = "0.1.1"
 description = "MCP server for the Dokmatiq DocGen document generation API"
+readme = "README.md"
 requires-python = ">=3.11"
 license = "MIT"
+authors = [
+    { name = "Dokmatiq", email = "support@dokmatiq.com" },
+]
+keywords = ["mcp", "model-context-protocol", "document-generation", "pdf", "docx", "excel", "zugferd", "xrechnung", "receipt-recognition", "datev"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
 dependencies = [
     "mcp>=1.0.0",
-    "dokmatiq-docgen>=0.1.0",
+    "dokmatiq-docgen>=0.1.1",
 ]
+
+[project.urls]
+Homepage = "https://github.com/dokmatiq/docgen-sdks"
+Documentation = "https://docs.dokmatiq.com"
+Repository = "https://github.com/dokmatiq/docgen-sdks"
+Issues = "https://github.com/dokmatiq/docgen-sdks/issues"
 
 [project.scripts]
 docgen-mcp = "docgen_mcp.server:main"

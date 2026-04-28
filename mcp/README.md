@@ -1,12 +1,14 @@
 # Dokmatiq DocGen MCP Server
 
+<!-- mcp-name: io.github.dokmatiq/docgen -->
+
 MCP (Model Context Protocol) server that exposes the [Dokmatiq DocGen](https://dokmatiq.com) document generation API as tools for AI assistants like Claude.
 
 ## Setup
 
 ### Prerequisites
 
-- Python 3.10+
+- Python 3.11+
 - DocGen API key
 
 ### Installation
