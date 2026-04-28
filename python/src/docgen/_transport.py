@@ -58,7 +58,7 @@ class Transport:
         method: str,
         path: str,
         *,
-        json: dict[str, Any] | None = None,
+        json: dict[str, Any] | list[Any] | None = None,
         params: dict[str, Any] | None = None,
     ) -> bytes:
         """Send a JSON request and return the raw response bytes (for documents)."""
@@ -183,7 +183,7 @@ class AsyncTransport:
         method: str,
         path: str,
         *,
-        json: dict[str, Any] | None = None,
+        json: dict[str, Any] | list[Any] | None = None,
         params: dict[str, Any] | None = None,
     ) -> bytes:
         response = await self._request_with_retry(method, path, json=json, params=params)

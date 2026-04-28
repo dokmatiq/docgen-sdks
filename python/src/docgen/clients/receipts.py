@@ -20,7 +20,7 @@ class ReceiptsClient:
 
     def extract(self, file_bytes: bytes, file_name: str, content_type: str = "image/jpeg") -> dict[str, Any]:
         """Extract structured data from a receipt image or PDF."""
-        return self._t.upload("POST", "/api/receipts/extract",
+        return self._t.upload("/api/receipts/extract",
             files={"file": (file_name, file_bytes, content_type)})
 
     def extract_batch(self, files: list[tuple[str, bytes, str]]) -> dict[str, Any]:
@@ -62,7 +62,7 @@ class ReceiptsClient:
             data["callbackUrl"] = callback_url
         if callback_secret:
             data["callbackSecret"] = callback_secret
-        return self._t.upload("POST", "/api/receipts/extract-async",
+        return self._t.upload("/api/receipts/extract-async",
             files={"file": (file_name, file_bytes, content_type)},
             data=data)
 
@@ -82,7 +82,7 @@ class ReceiptsClient:
         data: dict[str, str] = {"format": format, "title": title}
         if template_name:
             data["templateName"] = template_name
-        return self._t.upload("POST", "/api/receipts/to-document",
+        return self._t.upload("/api/receipts/to-document",
             files={"file": (file_name, file_bytes, content_type)},
             data=data)
 
@@ -108,4 +108,4 @@ class ReceiptsClient:
 
     def list_jobs(self) -> list[dict[str, Any]]:
         """List all async receipt jobs."""
-        return self._t.request_json("GET", "/api/receipts/jobs")
+        return self._t.request_list("GET", "/api/receipts/jobs")

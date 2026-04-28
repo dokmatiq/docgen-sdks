@@ -83,4 +83,4 @@ class PreviewClient:
             "POST", "/api/preview/page-count",
             json={"pdfBase64": to_base64(pdf)},
         )
-        return data.get("pageCount", 0)
+        return int(data.get("pageCount", 0))

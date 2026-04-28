@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from typing import Any
+
 from docgen._files import FileInput, to_bytes, detect_filename
 from docgen._transport import Transport
 
@@ -12,7 +14,7 @@ class TemplatesClient:
     def __init__(self, transport: Transport) -> None:
         self._transport = transport
 
-    def upload(self, source: FileInput, filename: str | None = None) -> dict:
+    def upload(self, source: FileInput, filename: str | None = None) -> dict[str, Any]:
         """Upload a LibreOffice template (.odt, .ott, .docx).
 
         Args:

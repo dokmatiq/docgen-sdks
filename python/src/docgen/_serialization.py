@@ -4,7 +4,9 @@ from __future__ import annotations
 
 import dataclasses
 from enum import Enum
-from typing import Any, get_type_hints
+from typing import Any, TypeVar, cast, get_type_hints
+
+T = TypeVar("T")
 
 
 def _to_camel(name: str) -> str:
@@ -63,13 +65,13 @@ def to_dict(obj: Any) -> Any:
     return obj
 
 
-def from_dict(cls: type, data: dict[str, Any]) -> Any:
+def from_dict(cls: type[T], data: dict[str, Any]) -> T:
     """Deserialize a JSON dict to a dataclass instance.
 
     Converts camelCase keys to snake_case to match dataclass fields.
     """
     if not dataclasses.is_dataclass(cls):
-        return data
+        return cast(T, data)
 
     snake_data = {_to_snake(k): v for k, v in data.items()}
     field_names = {f.name for f in dataclasses.fields(cls)}
@@ -87,16 +89,16 @@ def from_dict(cls: type, data: dict[str, Any]) -> Any:
                 continue
 
             if dataclasses.is_dataclass(actual_type) and isinstance(filtered[fname], dict):
-                filtered[fname] = from_dict(actual_type, filtered[fname])
+                filtered[fname] = from_dict(cast(type, actual_type), filtered[fname])
             elif origin is list and isinstance(filtered[fname], list):
                 inner = _get_list_inner_type(ftype)
                 if inner and dataclasses.is_dataclass(inner):
                     filtered[fname] = [
-                        from_dict(inner, item) if isinstance(item, dict) else item
+                        from_dict(cast(type, inner), item) if isinstance(item, dict) else item
                         for item in filtered[fname]
                     ]
 
-    return cls(**filtered)
+    return cast(T, cls(**filtered))
 
 
 def _unwrap_optional(ftype: Any) -> Any:

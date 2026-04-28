@@ -61,7 +61,7 @@ class PdfToolsClient:
             "/api/pdf-tools/extract",
             files={"file": (name, data, "application/pdf")},
         )
-        return result.get("text", "")
+        return str(result.get("text", ""))
 
     def get_metadata(self, pdf: FileInput) -> dict[str, Any]:
         """Get PDF metadata (title, author, subject, etc.).

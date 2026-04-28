@@ -22,7 +22,7 @@ class SignaturesClient:
 
     # --- Certificate Management ---
 
-    def upload_certificate(self, source: FileInput, filename: str | None = None) -> dict:
+    def upload_certificate(self, source: FileInput, filename: str | None = None) -> dict[str, Any]:
         """Upload a PKCS#12 certificate (.p12, .pfx).
 
         Args:
@@ -44,7 +44,7 @@ class SignaturesClient:
         """Delete an uploaded certificate."""
         self._transport.delete(f"/api/signatures/certificates/{filename}")
 
-    def certificate_info(self, source: FileInput, password: str) -> dict:
+    def certificate_info(self, source: FileInput, password: str) -> dict[str, Any]:
         """Get information about a PKCS#12 certificate.
 
         Args:
