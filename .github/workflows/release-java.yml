@@ -4,6 +4,12 @@ on:
   push:
     tags:
       - "java-v*"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Dry run — sign artifacts but do not upload to Maven Central"
+        type: boolean
+        default: true
 
 jobs:
   release:
@@ -21,6 +27,7 @@ jobs:
           cache: maven
 
       - name: Verify pom.xml version matches tag
+        if: github.event_name == 'push'
         env:
           TAG_NAME: ${{ github.ref_name }}
         run: |
@@ -55,7 +62,14 @@ jobs:
           </settings>
           XMLEOF
 
+      - name: Build and sign (dry run)
+        if: github.event_name == 'workflow_dispatch' && inputs.dry_run
+        env:
+          MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+        run: mvn -B -P release verify
+
       - name: Deploy to Maven Central
+        if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && !inputs.dry_run)
         env:
           MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
           SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
