@@ -2,20 +2,20 @@
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-29/server.schema.json",
   "name": "io.github.dokmatiq/docgen",
   "title": "Dokmatiq DocGen",
-  "description": "PDF, DOCX, Excel generation, ZUGFeRD/XRechnung e-invoicing, PDF signing, receipt OCR.",
+  "description": "PDF/DOCX/Excel generation with stationery overlay, ZUGFeRD/XRechnung, signing, receipt OCR.",
   "websiteUrl": "https://dokmatiq.com",
   "repository": {
     "url": "https://github.com/dokmatiq/docgen-sdks",
     "source": "github",
     "subfolder": "mcp"
   },
-  "version": "0.1.1",
+  "version": "0.1.2",
   "packages": [
     {
       "registryType": "pypi",
       "registryBaseUrl": "https://pypi.org",
       "identifier": "dokmatiq-docgen-mcp",
-      "version": "0.1.1",
+      "version": "0.1.2",
       "transport": {
         "type": "stdio"
       },
