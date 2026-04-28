@@ -1,0 +1,28 @@
+{
+  "name": "dokmatiq-docgen",
+  "version": "0.1.0",
+  "description": "Document generation, e-invoicing (ZUGFeRD/XRechnung), Excel, and AI receipt recognition for Claude Code. Bundles the Dokmatiq DocGen MCP server (40 tools) with a triggering skill.",
+  "author": {
+    "name": "Dokmatiq",
+    "url": "https://dokmatiq.com"
+  },
+  "homepage": "https://dokmatiq.com",
+  "repository": "https://github.com/dokmatiq/docgen-sdks",
+  "license": "MIT",
+  "keywords": [
+    "pdf",
+    "docx",
+    "excel",
+    "zugferd",
+    "xrechnung",
+    "e-invoice",
+    "rechnung",
+    "receipt-recognition",
+    "beleg",
+    "datev",
+    "skr03",
+    "skr04",
+    "document-generation",
+    "digital-signature"
+  ]
+}

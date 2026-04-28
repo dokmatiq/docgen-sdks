@@ -18,7 +18,7 @@ Official SDKs for the [Dokmatiq DocGen API](https://developer.dokmatiq.com) -- d
 | **PHP** | [`dokmatiq/docgen-sdk`](php/) | `composer require dokmatiq/docgen-sdk` |
 | **C# / .NET** | [`Dokmatiq.DocGen`](dotnet/) | `dotnet add package Dokmatiq.DocGen` |
 
-Also included: [MCP Server](mcp/) for AI assistants and a [Claude Code Skill](skill/).
+Also included: [MCP Server](mcp/) for AI assistants (any MCP client — Claude Desktop, Cursor, Continue, Cline, …) and a [Claude Code Plugin](plugin/) (one-step install of the MCP plus a triggering skill).
 
 ---
 

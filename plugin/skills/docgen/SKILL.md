@@ -1,16 +1,24 @@
-# DocGen – Document Generation, Excel, & Receipt Recognition Skill
+---
+name: docgen
+description: Use this skill when the user wants to generate, transform, or analyze documents — including PDF, DOCX, ODT, or Excel/XLSX files. Covers e-invoicing (ZUGFeRD, XRechnung, Factur-X, EN 16931), digital PDF signatures with PKCS#12 certificates, PDF operations (merge, split, rotate, PDF/A conversion, form filling, metadata, text extraction), Excel workbook generation from JSON or CSV with formulas and styling, and AI-powered receipt/invoice recognition (vendor, totals, line items, VAT breakdown, German bookkeeping codes SKR03/SKR04, DATEV-compatible CSV export). Trigger keywords include PDF, DOCX, ODT, Excel, XLSX, Rechnung, Invoice, ZUGFeRD, XRechnung, Beleg, Spesen, Quittung, Stationery, Briefpapier, Wasserzeichen, watermark, sign PDF, fill form, OCR receipt, DATEV, expense report, Buchhaltung. Requires the dokmatiq-docgen MCP server to be configured (auto-loaded by this plugin) and DOCGEN_API_KEY environment variable set.
+---
+
+# DocGen — Document Generation, Excel & Receipt Recognition
 
 Generate professional PDF, DOCX, ODT documents and Excel spreadsheets from HTML/Markdown with templates, tables, QR codes, e-invoicing (ZUGFeRD/XRechnung), digital signatures, AI-powered receipt recognition, and more.
 
 ## Prerequisites
 
-This skill requires the DocGen MCP server to be connected. Add it to your Claude Code configuration:
+This skill requires the DocGen MCP server. The plugin auto-configures it via `.mcp.json`, but you must:
+
+1. Get an API key at https://developer.dokmatiq.com
+2. Set the `DOCGEN_API_KEY` environment variable (e.g. in `~/.zshrc` or `~/.bash_profile`):
 
 ```bash
-claude mcp add docgen -- docgen-mcp
+export DOCGEN_API_KEY="dk_live_xxxxxxxxxxxxx"
 ```
 
-Set the `DOCGEN_API_KEY` environment variable with your API key.
+3. Restart Claude Code so the env var is picked up
 
 ## Capabilities
 
@@ -27,6 +35,11 @@ Set the `DOCGEN_API_KEY` environment variable with your API key.
 ### E-Invoicing (ZUGFeRD / XRechnung)
 
 - `create_invoice` – Create a complete, ZUGFeRD-compliant invoice PDF with structured e-invoicing data embedded. Supports seller/buyer parties, line items with units (hours, pieces, kg, etc.), bank details, payment terms, and VAT calculation.
+- `validate_zugferd` – Validate ZUGFeRD/Factur-X PDF compliance
+- `extract_zugferd` – Extract structured invoice data from a ZUGFeRD PDF
+- `validate_xrechnung` – Validate XRechnung XML
+- `parse_xrechnung` – Parse XRechnung XML into structured data
+- `detect_xrechnung` – Detect if XML is an XRechnung and identify format
 
 ### PDF Tools
 
@@ -78,14 +91,6 @@ Set the `DOCGEN_API_KEY` environment variable with your API key.
 - `receipt_to_document` – Extract receipt data and generate an expense report document (PDF/DOCX/ODT) in one step
 - `export_receipts_csv` – Export extracted receipts as DATEV-compatible CSV
 - `export_receipts_xlsx` – Export extracted receipts as Excel workbook
-
-### E-Invoice Validation
-
-- `validate_zugferd` – Validate ZUGFeRD/Factur-X PDF compliance
-- `extract_zugferd` – Extract structured invoice data from a ZUGFeRD PDF
-- `validate_xrechnung` – Validate XRechnung XML
-- `parse_xrechnung` – Parse XRechnung XML into structured data
-- `detect_xrechnung` – Detect if XML is an XRechnung and identify format
 
 ## Usage Patterns
 
