@@ -1,5 +1,12 @@
 # Dokmatiq DocGen — Claude Code Plugin
 
+> **Moved.** This plugin now lives at [github.com/dokmatiq/claude-plugins](https://github.com/dokmatiq/claude-plugins). Install with:
+> ```
+> /plugin marketplace add dokmatiq/claude-plugins
+> /plugin install docgen@dokmatiq
+> ```
+> The copy in this folder is kept for backward compatibility and will be removed in a future release.
+
 One-step install of the Dokmatiq DocGen MCP server (40 tools) plus a triggering skill that tells Claude Code when to use them.
 
 ## What's inside
