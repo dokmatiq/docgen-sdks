@@ -1,0 +1,38 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-29/server.schema.json",
+  "name": "io.github.dokmatiq/docgen",
+  "title": "Dokmatiq DocGen",
+  "description": "Generate PDF, DOCX, ODT and Excel documents from HTML/Markdown/templates. Create ZUGFeRD/XRechnung e-invoices. Digitally sign PDFs, fill forms, merge/split/rotate, and convert to PDF/A. AI-powered receipt and invoice OCR with German bookkeeping codes (SKR03/SKR04) and DATEV-compatible CSV export. 40 tools.",
+  "websiteUrl": "https://dokmatiq.com",
+  "repository": {
+    "url": "https://github.com/dokmatiq/docgen-sdks",
+    "source": "github",
+    "subfolder": "mcp"
+  },
+  "version": "0.1.0",
+  "packages": [
+    {
+      "registryType": "pypi",
+      "registryBaseUrl": "https://pypi.org",
+      "identifier": "dokmatiq-docgen-mcp",
+      "version": "0.1.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "DOCGEN_API_KEY",
+          "description": "Dokmatiq API key (get one at https://developer.dokmatiq.com)",
+          "isRequired": true,
+          "isSecret": true
+        },
+        {
+          "name": "DOCGEN_BASE_URL",
+          "description": "Override the API base URL (default: https://api.dokmatiq.com)",
+          "isRequired": false,
+          "isSecret": false
+        }
+      ]
+    }
+  ]
+}
