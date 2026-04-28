@@ -141,4 +141,29 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <!--
+            Activated by the GitHub Actions release workflow.
+            Reconfigures GPG to read the passphrase from MAVEN_GPG_PASSPHRASE
+            (env var) via loopback pinentry, which is required in
+            non-interactive CI environments. Local interactive `mvn deploy`
+            does NOT activate this profile, so the existing pinentry-mac
+            flow keeps working unchanged.
+        -->
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <configuration>
+                            <bestPractices>true</bestPractices>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
