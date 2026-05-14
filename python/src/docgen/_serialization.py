@@ -59,7 +59,7 @@ def to_dict(obj: Any) -> Any:
             value = getattr(obj, f.name)
             serialized = to_dict(value)
             if serialized is not None:
-                result[_to_camel(f.name)] = serialized
+                result[f.metadata.get("json_name", _to_camel(f.name))] = serialized
         return result if result else None
 
     return obj
@@ -74,8 +74,16 @@ def from_dict(cls: type[T], data: dict[str, Any]) -> T:
         return cast(T, data)
 
     snake_data = {_to_snake(k): v for k, v in data.items()}
-    field_names = {f.name for f in dataclasses.fields(cls)}
-    filtered = {k: v for k, v in snake_data.items() if k in field_names}
+    filtered = {}
+    for f in dataclasses.fields(cls):
+        aliases = [f.name, f.metadata.get("json_name"), *f.metadata.get("aliases", ())]
+        for alias in aliases:
+            if alias is None:
+                continue
+            key = _to_snake(str(alias))
+            if key in snake_data:
+                filtered[f.name] = snake_data[key]
+                break
 
     # Recursively deserialize nested dataclasses
     hints = get_type_hints(cls)

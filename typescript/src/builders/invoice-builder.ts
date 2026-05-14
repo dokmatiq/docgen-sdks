@@ -132,8 +132,8 @@ export class InvoiceBuilder {
     if (!this._buyer) throw new Error("Buyer is required");
 
     return {
-      invoiceNumber: this._number,
-      invoiceDate: this._date,
+      number: this._number,
+      date: this._date,
       seller: this._seller,
       buyer: this._buyer,
       items: [...this._items],

@@ -87,13 +87,13 @@ class InvoiceData:
         xrechnung_format: XRechnung XML format (CII or UBL).
     """
 
-    invoice_number: str
-    invoice_date: str
+    invoice_number: str = field(metadata={"json_name": "number", "aliases": ("invoiceNumber",)})
+    invoice_date: str = field(metadata={"json_name": "date", "aliases": ("invoiceDate", "issueDate")})
     seller: Party
     buyer: Party
     items: list[InvoiceItem] = field(default_factory=list)
     currency: str = "EUR"
-    bank_account: BankAccount | None = None
+    bank_account: BankAccount | None = field(default=None, metadata={"json_name": "bankAccount", "aliases": ("bankDetails",)})
     payment_terms: str | None = None
     due_date: str | None = None
     note: str | None = None

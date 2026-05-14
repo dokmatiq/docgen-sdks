@@ -32,6 +32,10 @@ final class InvoiceData
     /** @return array<string, mixed> */
     public function toArray(): array
     {
-        return Serializer::toArray($this);
+        $data = Serializer::toArray($this);
+        $data['number'] = $data['invoiceNumber'];
+        $data['date'] = $data['invoiceDate'];
+        unset($data['invoiceNumber'], $data['invoiceDate']);
+        return $data;
     }
 }

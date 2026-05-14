@@ -38,7 +38,7 @@ class ZugferdClient:
         """
         payload: dict[str, Any] = {
             "pdfBase64": to_base64(pdf),
-            "invoiceData": to_dict(invoice),
+            "invoice": to_dict(invoice),
             "profile": profile.value,
         }
         return self._transport.request_bytes(

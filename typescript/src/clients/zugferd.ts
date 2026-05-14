@@ -19,9 +19,9 @@ export class ZugferdClient {
     invoiceData: InvoiceData,
   ): Promise<Buffer> {
     const base64 = toBase64(file);
-    return this.transport.requestBytes("POST", "/api/zugferd/embed", {
+    return this.transport.requestBytes("POST", "/api/zugferd/embed/base64", {
       pdfBase64: base64,
-      invoiceData,
+      invoice: invoiceData,
     });
   }
 
@@ -30,7 +30,7 @@ export class ZugferdClient {
     const base64 = toBase64(file);
     return this.transport.requestJson<InvoiceData>(
       "POST",
-      "/api/zugferd/extract",
+      "/api/zugferd/extract/base64",
       { pdfBase64: base64 },
     );
   }
@@ -40,7 +40,7 @@ export class ZugferdClient {
     const base64 = toBase64(file);
     return this.transport.requestJson<ZugferdValidationResult>(
       "POST",
-      "/api/zugferd/validate",
+      "/api/zugferd/validate/base64",
       { pdfBase64: base64 },
     );
   }

@@ -17,25 +17,25 @@ public class ZugferdClient {
 
     /** Embed ZUGFeRD XML into a PDF. */
     public byte[] embed(Path file, InvoiceData invoiceData) {
-        return transport.requestBytes("POST", "/api/zugferd/embed",
-                Map.of("pdfBase64", FileUtils.toBase64(file), "invoiceData", invoiceData));
+        return transport.requestBytes("POST", "/api/zugferd/embed/base64",
+                Map.of("pdfBase64", FileUtils.toBase64(file), "invoice", invoiceData));
     }
 
     /** Embed ZUGFeRD XML from bytes. */
     public byte[] embed(byte[] data, InvoiceData invoiceData) {
-        return transport.requestBytes("POST", "/api/zugferd/embed",
-                Map.of("pdfBase64", FileUtils.toBase64(data), "invoiceData", invoiceData));
+        return transport.requestBytes("POST", "/api/zugferd/embed/base64",
+                Map.of("pdfBase64", FileUtils.toBase64(data), "invoice", invoiceData));
     }
 
     /** Extract ZUGFeRD XML from a PDF. */
     public InvoiceData extract(Path file) {
-        return transport.requestJson("POST", "/api/zugferd/extract",
+        return transport.requestJson("POST", "/api/zugferd/extract/base64",
                 Map.of("pdfBase64", FileUtils.toBase64(file)), InvoiceData.class);
     }
 
     /** Validate a ZUGFeRD PDF. */
     public Map<?, ?> validate(Path file) {
-        return transport.requestJson("POST", "/api/zugferd/validate",
+        return transport.requestJson("POST", "/api/zugferd/validate/base64",
                 Map.of("pdfBase64", FileUtils.toBase64(file)), Map.class);
     }
 }

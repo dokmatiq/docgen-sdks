@@ -51,7 +51,13 @@ final class InvoiceBuilder
 
     public function addItem(string $description, float $unitPrice, float $quantity = 1, ?InvoiceUnit $unit = null, float $vatRate = 19.0): self
     {
-        $this->items[] = new InvoiceItem($description, $unitPrice, $quantity, $unit, $vatRate);
+        $this->items[] = new InvoiceItem(
+            description: $description,
+            quantity: $quantity,
+            unit: $unit ?? InvoiceUnit::PIECE,
+            unitPrice: $unitPrice,
+            vatRate: $vatRate,
+        );
         return $this;
     }
 
@@ -73,8 +79,8 @@ final class InvoiceBuilder
         if ($this->buyer === null) throw new \InvalidArgumentException('Buyer is required');
 
         return new InvoiceData(
-            number: $this->number,
-            date: $this->date,
+            invoiceNumber: $this->number,
+            invoiceDate: $this->date,
             seller: $this->seller,
             buyer: $this->buyer,
             items: $this->items,
@@ -84,7 +90,7 @@ final class InvoiceBuilder
             dueDate: $this->dueDate,
             note: $this->note,
             buyerReference: $this->buyerReference,
-            typeCode: $this->typeCode,
+            invoiceTypeCode: $this->typeCode,
             profile: $this->profile,
             xrechnungFormat: $this->xrechnungFormat,
         );

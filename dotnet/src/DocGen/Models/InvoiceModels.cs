@@ -7,10 +7,10 @@ namespace Dokmatiq.DocGen.Models;
 /// </summary>
 public class InvoiceData
 {
-    [JsonPropertyName("invoiceNumber")]
+    [JsonPropertyName("number")]
     public string InvoiceNumber { get; set; } = "";
 
-    [JsonPropertyName("invoiceDate")]
+    [JsonPropertyName("date")]
     public string InvoiceDate { get; set; } = "";
 
     [JsonPropertyName("seller")]

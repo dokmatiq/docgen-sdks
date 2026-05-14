@@ -30,8 +30,8 @@ export interface BankAccount {
 
 /** Structured invoice data for ZUGFeRD/Factur-X and XRechnung. */
 export interface InvoiceData {
-  invoiceNumber: string;
-  invoiceDate: string;
+  number: string;
+  date: string;
   seller: Party;
   buyer: Party;
   items: InvoiceItem[];
@@ -44,4 +44,12 @@ export interface InvoiceData {
   invoiceTypeCode?: string;
   profile?: ZugferdProfile;
   xrechnungFormat?: XRechnungFormat;
+  /** @deprecated Use number. Accepted by the API for compatibility. */
+  invoiceNumber?: string;
+  /** @deprecated Use date. Accepted by the API for compatibility. */
+  invoiceDate?: string;
+  /** @deprecated Use date. Accepted by the API for compatibility. */
+  issueDate?: string;
+  /** @deprecated Use bankAccount. Accepted by the API for compatibility. */
+  bankDetails?: BankAccount;
 }
