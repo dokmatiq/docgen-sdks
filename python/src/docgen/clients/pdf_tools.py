@@ -55,11 +55,10 @@ class PdfToolsClient:
         Returns:
             Extracted text content.
         """
-        name = detect_filename(pdf) or "document.pdf"
-        data = to_bytes(pdf)
-        result = self._transport.upload(
-            "/api/pdf-tools/extract",
-            files={"file": (name, data, "application/pdf")},
+        result = self._transport.request_json(
+            "POST",
+            "/api/pdf-tools/extract-text",
+            json={"pdfBase64": to_base64(pdf)},
         )
         return str(result.get("text", ""))
 

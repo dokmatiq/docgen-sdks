@@ -41,7 +41,7 @@ final class PdfToolsClient
     /** Extract text from a PDF. */
     public function extractText(string $pdfPathOrBase64): string
     {
-        $data = $this->transport->requestJson('POST', '/api/pdf/extract-text', [
+        $data = $this->transport->requestJson('POST', '/api/pdf-tools/extract-text', [
             'pdfBase64' => FileUtils::toBase64($pdfPathOrBase64),
         ]);
         return $data['text'] ?? '';
