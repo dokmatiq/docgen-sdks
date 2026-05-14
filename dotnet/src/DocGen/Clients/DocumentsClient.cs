@@ -31,19 +31,19 @@ public sealed class DocumentsClient
 
     /// <summary>Submit an async generation job.</summary>
     public JobInfo SubmitAsync(DocumentRequest request)
-        => _transport.RequestJson<JobInfo>(HttpMethod.Post, "/api/documents/generate/async", request);
+        => _transport.RequestJson<JobInfo>(HttpMethod.Post, "/api/documents/generate-async", request);
 
     /// <summary>Get status of an async job.</summary>
     public JobInfo GetJob(string jobId)
-        => _transport.RequestJson<JobInfo>(HttpMethod.Get, $"/api/jobs/{jobId}");
+        => _transport.RequestJson<JobInfo>(HttpMethod.Get, $"/api/documents/jobs/{jobId}");
 
     /// <summary>Download the result of a completed async job.</summary>
     public byte[] DownloadJob(string jobId)
-        => _transport.RequestBytes(HttpMethod.Get, $"/api/jobs/{jobId}/download");
+        => _transport.RequestBytes(HttpMethod.Get, $"/api/documents/jobs/{jobId}/download");
 
     /// <summary>List recent async jobs.</summary>
     public List<JobInfo> ListJobs()
-        => _transport.RequestList<JobInfo>(HttpMethod.Get, "/api/jobs");
+        => _transport.RequestList<JobInfo>(HttpMethod.Get, "/api/documents/jobs");
 
     /// <summary>Poll an async job until completion.</summary>
     public byte[] WaitForJob(string jobId, TimeSpan? pollInterval = null, TimeSpan? timeout = null)

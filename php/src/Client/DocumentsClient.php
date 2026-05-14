@@ -17,33 +17,33 @@ final class DocumentsClient
     /** Generate a document and return raw PDF/DOCX bytes. */
     public function generate(DocumentRequest $request): string
     {
-        return $this->transport->requestBytes('POST', '/api/document/generate', $request);
+        return $this->transport->requestBytes('POST', '/api/documents/generate', $request);
     }
 
     /** Compose a multi-part document. */
     public function compose(ComposeRequest $request): string
     {
-        return $this->transport->requestBytes('POST', '/api/document/compose', $request);
+        return $this->transport->requestBytes('POST', '/api/documents/compose', $request);
     }
 
     /** Start async document generation. Returns job info. */
     public function generateAsync(DocumentRequest $request): JobInfo
     {
-        $data = $this->transport->requestJson('POST', '/api/document/generate-async', $request);
+        $data = $this->transport->requestJson('POST', '/api/documents/generate-async', $request);
         return JobInfo::fromArray($data);
     }
 
     /** Get job status. */
     public function getJob(string $jobId): JobInfo
     {
-        $data = $this->transport->requestJson('GET', "/api/jobs/{$jobId}");
+        $data = $this->transport->requestJson('GET', "/api/documents/jobs/{$jobId}");
         return JobInfo::fromArray($data);
     }
 
     /** Download completed job result. */
     public function downloadJob(string $jobId): string
     {
-        return $this->transport->requestBytes('GET', "/api/jobs/{$jobId}/download");
+        return $this->transport->requestBytes('GET', "/api/documents/jobs/{$jobId}/download");
     }
 
     /**

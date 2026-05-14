@@ -24,24 +24,24 @@ export class DocumentsClient {
   async generateAsync(request: DocumentRequest): Promise<JobInfo> {
     return this.transport.requestJson<JobInfo>(
       "POST",
-      "/api/documents/generate/async",
+      "/api/documents/generate-async",
       request,
     );
   }
 
   /** Get status of an async job. */
   async getJob(jobId: string): Promise<JobInfo> {
-    return this.transport.requestJson<JobInfo>("GET", `/api/jobs/${jobId}`);
+    return this.transport.requestJson<JobInfo>("GET", `/api/documents/jobs/${jobId}`);
   }
 
   /** Download the result of a completed async job. */
   async downloadJob(jobId: string): Promise<Buffer> {
-    return this.transport.requestBytes("GET", `/api/jobs/${jobId}/download`);
+    return this.transport.requestBytes("GET", `/api/documents/jobs/${jobId}/download`);
   }
 
   /** List recent async jobs. */
   async listJobs(): Promise<JobInfo[]> {
-    return this.transport.requestList<JobInfo>("GET", "/api/jobs");
+    return this.transport.requestList<JobInfo>("GET", "/api/documents/jobs");
   }
 
   /**

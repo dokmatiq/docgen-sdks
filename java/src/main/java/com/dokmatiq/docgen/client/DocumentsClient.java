@@ -28,22 +28,22 @@ public class DocumentsClient {
 
     /** Submit an async generation job. */
     public JobInfo generateAsync(DocumentRequest request) {
-        return transport.requestJson("POST", "/api/documents/generate/async", request, JobInfo.class);
+        return transport.requestJson("POST", "/api/documents/generate-async", request, JobInfo.class);
     }
 
     /** Get status of an async job. */
     public JobInfo getJob(String jobId) {
-        return transport.requestJson("GET", "/api/jobs/" + jobId, null, JobInfo.class);
+        return transport.requestJson("GET", "/api/documents/jobs/" + jobId, null, JobInfo.class);
     }
 
     /** Download the result of a completed async job. */
     public byte[] downloadJob(String jobId) {
-        return transport.requestBytes("GET", "/api/jobs/" + jobId + "/download", null);
+        return transport.requestBytes("GET", "/api/documents/jobs/" + jobId + "/download", null);
     }
 
     /** List recent async jobs. */
     public List<JobInfo> listJobs() {
-        return transport.requestList("GET", "/api/jobs", JobInfo.class);
+        return transport.requestList("GET", "/api/documents/jobs", JobInfo.class);
     }
 
     /**
