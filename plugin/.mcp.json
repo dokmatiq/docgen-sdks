@@ -1,10 +1,7 @@
 {
   "mcpServers": {
     "docgen": {
-      "command": "docgen-mcp",
-      "env": {
-        "DOCGEN_API_KEY": "${DOCGEN_API_KEY}"
-      }
+      "command": "docgen-mcp"
     }
   }
 }

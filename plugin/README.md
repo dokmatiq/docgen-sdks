@@ -34,6 +34,8 @@ claude plugin install dokmatiq/docgen-sdks@plugin
 
 After install, restart Claude Code. The MCP server is auto-configured via the bundled `.mcp.json`, and the skill triggers on relevant prompts.
 
+The bundled `.mcp.json` does not include an `env` block. JSON MCP config files do not perform shell-style `${DOCGEN_API_KEY}` expansion consistently across clients, so the server reads the real `DOCGEN_API_KEY` from the environment of the host process.
+
 ## Verify
 
 In Claude Code:
@@ -54,7 +56,7 @@ The skill should fire and Claude should call `generate_pdf_from_markdown`.
 
 ## Without the plugin
 
-If you don't use Claude Code (e.g. Claude Desktop, Cursor, Continue, Cline), you can still use the MCP server directly — see https://github.com/dokmatiq/docgen-sdks/tree/main/mcp for setup instructions per client.
+If you don't use Claude Code (e.g. Claude Desktop, Cursor, Continue, Cline, Hermes), you can still use the MCP server directly — see https://github.com/dokmatiq/docgen-sdks/tree/main/mcp for setup instructions per client.
 
 ## License
 

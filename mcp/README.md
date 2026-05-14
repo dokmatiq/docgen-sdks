@@ -79,6 +79,25 @@ claude mcp add docgen -- docgen-mcp
 
 Set the API key in your environment or `.env` file.
 
+## Usage with Hermes
+
+Add the MCP server to your Hermes config (`~/.hermes/config.yaml`):
+
+```yaml
+mcp_servers:
+  docgen:
+    command: "uvx"
+    args: ["dokmatiq-docgen-mcp"]
+    env:
+      DOCGEN_API_KEY: "dk_live_xxx"
+```
+
+Replace `dk_live_xxx` with your Dokmatiq API key.
+
+## Environment Variables in MCP Configs
+
+Do not use shell placeholders such as `${DOCGEN_API_KEY}` inside JSON MCP config files unless your specific client documents that it expands them. Many MCP clients pass that value literally to the server, which causes authentication to fail.
+
 ## Available Tools
 
 ### Document Generation

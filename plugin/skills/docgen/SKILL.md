@@ -1,6 +1,6 @@
 ---
 name: docgen
-description: Use this skill when the user wants to generate, transform, or analyze documents — including PDF, DOCX, ODT, or Excel/XLSX files — with optional stationery overlay (Briefpapier/letterhead branding applied to generated PDFs). Covers e-invoicing (ZUGFeRD, XRechnung, Factur-X, EN 16931), digital PDF signatures with PKCS#12 certificates, PDF operations (merge, split, rotate, PDF/A conversion, form filling, metadata, text extraction), Excel workbook generation from JSON or CSV with formulas and styling, and AI-powered receipt/invoice recognition (vendor, totals, line items, VAT breakdown, German bookkeeping codes SKR03/SKR04, DATEV-compatible CSV export). Trigger keywords include PDF, DOCX, ODT, Excel, XLSX, Rechnung, Invoice, ZUGFeRD, XRechnung, Beleg, Spesen, Quittung, Stationery, Briefpapier, Letterhead, Wasserzeichen, watermark, sign PDF, fill form, OCR receipt, DATEV, expense report, Buchhaltung. Requires the dokmatiq-docgen MCP server to be configured (auto-loaded by this plugin) and DOCGEN_API_KEY environment variable set.
+description: Use this skill when the user wants to generate, transform, or analyze documents — including PDF, DOCX, ODT, or Excel/XLSX files — with optional stationery overlay (Briefpapier/letterhead branding applied to generated PDFs). Covers e-invoicing (ZUGFeRD, XRechnung, Factur-X, EN 16931), digital PDF signatures with PKCS#12 certificates, PDF operations (merge, split, rotate, PDF/A conversion, form filling, metadata, text extraction), Excel workbook generation from JSON or CSV with formulas and styling, and AI-powered receipt/invoice recognition (vendor, totals, line items, VAT breakdown, German bookkeeping codes SKR03/SKR04, DATEV-compatible CSV export). Trigger keywords include PDF, DOCX, ODT, Excel, XLSX, Rechnung, Invoice, ZUGFeRD, XRechnung, Beleg, Spesen, Quittung, Stationery, Briefpapier, Letterhead, Wasserzeichen, watermark, sign PDF, fill form, OCR receipt, DATEV, expense report, Buchhaltung. Requires the dokmatiq-docgen MCP server to be configured in the active MCP client and a valid DOCGEN_API_KEY to be available to that server.
 ---
 
 # DocGen — Document Generation, Excel & Receipt Recognition
@@ -9,16 +9,39 @@ Generate professional PDF, DOCX, ODT documents and Excel spreadsheets from HTML/
 
 ## Prerequisites
 
-This skill requires the DocGen MCP server. The plugin auto-configures it via `.mcp.json`, but you must:
+This skill requires the Dokmatiq DocGen MCP server to be configured in the MCP client that loads the skill.
 
 1. Get an API key at https://developer.dokmatiq.com
-2. Set the `DOCGEN_API_KEY` environment variable (e.g. in `~/.zshrc` or `~/.bash_profile`):
+2. Install the MCP server:
+
+```bash
+pip install dokmatiq-docgen-mcp
+```
+
+3. Make the API key available to the MCP server, either through the client config or the process environment:
 
 ```bash
 export DOCGEN_API_KEY="dk_live_xxxxxxxxxxxxx"
 ```
 
-3. Restart Claude Code so the env var is picked up
+4. Restart or reload your MCP client so it picks up the configuration.
+
+### Client setup notes
+
+- Plugin-based clients can auto-register the MCP server from the bundled `.mcp.json`.
+- JSON MCP configs should use a literal API key in `env` or rely on the process environment. Do not assume `${DOCGEN_API_KEY}` is expanded unless the client explicitly documents that behavior.
+- Hermes users should configure the server in `~/.hermes/config.yaml`:
+
+```yaml
+mcp_servers:
+  docgen:
+    command: "uvx"
+    args: ["dokmatiq-docgen-mcp"]
+    env:
+      DOCGEN_API_KEY: "dk_live_xxxxxxxxxxxxx"
+```
+
+- Claude Desktop, Cursor, Continue, Cline, and similar MCP clients can run the same server command (`docgen-mcp` or `uvx dokmatiq-docgen-mcp`) as long as `DOCGEN_API_KEY` is available to the server.
 
 ## Capabilities
 
