@@ -5,14 +5,14 @@ build-backend = "hatchling.build"
 [project]
 name = "dokmatiq-docgen-mcp"
 version = "0.1.2"
-description = "MCP server for Dokmatiq DocGen — PDF/DOCX/Excel generation with stationery overlay, ZUGFeRD/XRechnung e-invoicing, signing, AI receipt OCR"
+description = "MCP server for Dokmatiq DocGen — PDF/DOCX/Excel generation with stationery/letterhead overlay, ZUGFeRD/XRechnung/Factur-X e-invoicing, signing, AI receipt OCR"
 readme = "README.md"
 requires-python = ">=3.11"
 license = "MIT"
 authors = [
     { name = "Dokmatiq", email = "support@dokmatiq.com" },
 ]
-keywords = ["mcp", "model-context-protocol", "document-generation", "pdf", "docx", "excel", "zugferd", "xrechnung", "receipt-recognition", "datev"]
+keywords = ["mcp", "model-context-protocol", "codex-skill", "claude-code-plugin", "document-generation", "pdf", "docx", "excel", "zugferd", "xrechnung", "factur-x", "e-invoice", "e-rechnung", "briefpapier", "firmenpapier", "letterhead", "receipt-recognition", "datev"]
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Developers",

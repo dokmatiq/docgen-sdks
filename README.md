@@ -8,6 +8,8 @@
 
 Official SDKs for the [Dokmatiq DocGen API](https://developer.dokmatiq.com) -- document generation, e-invoicing, Excel workbooks, receipt recognition, and PDF tools in a single API.
 
+Dokmatiq DocGen also includes an MCP server and AI assistant skill for Codex and Claude Code to create PDFs, invoices, e-invoices, ZUGFeRD/XRechnung documents, and documents on company letterhead (Briefpapier/Firmenpapier).
+
 ## SDKs
 
 | Language | Package | Install |
@@ -18,7 +20,39 @@ Official SDKs for the [Dokmatiq DocGen API](https://developer.dokmatiq.com) -- d
 | **PHP** | [`dokmatiq/docgen-sdk`](php/) | `composer require dokmatiq/docgen-sdk` |
 | **C# / .NET** | [`Dokmatiq.DocGen`](dotnet/) | `dotnet add package Dokmatiq.DocGen` |
 
-Also included: [MCP Server](mcp/) for AI assistants (any MCP client — Claude Desktop, Cursor, Continue, Cline, …) and a [Claude Code Plugin](plugin/) (one-step install of the MCP plus a triggering skill).
+Also included: [MCP Server](mcp/) for AI assistants (any MCP client — Claude Desktop, Cursor, Continue, Cline, …) and a [Codex / Claude Code plugin and skill](plugin/) (MCP setup plus a triggering `dokmatiq-docgen` skill).
+
+## AI Assistant Install
+
+Use the Dokmatiq DocGen MCP server with Codex, Claude Code, Claude Desktop, Cursor, Continue, Cline, Hermes, or any other MCP-capable client.
+
+### Codex Skill
+
+Install the skill from this repo path:
+
+```bash
+python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py \
+  --repo dokmatiq/docgen-sdks \
+  --path plugin/skills/dokmatiq-docgen
+```
+
+Then install and configure the MCP server:
+
+```bash
+python3.11 -m pip install --user dokmatiq-docgen-mcp
+export DOCGEN_API_KEY="dk_live_xxxxxxxxxxxxx"
+```
+
+If `docgen-mcp` is installed into `~/.local/bin`, make sure that directory is on your `PATH`, or configure your MCP client with the absolute command path.
+
+### Claude Code Plugin
+
+```bash
+/plugin marketplace add dokmatiq/claude-plugins
+/plugin install docgen@dokmatiq
+```
+
+The legacy plugin copy in this repository is kept under [`plugin/`](plugin/) for backwards compatibility.
 
 ---
 

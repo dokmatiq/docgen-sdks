@@ -2,7 +2,9 @@
 
 <!-- mcp-name: io.github.dokmatiq/docgen -->
 
-MCP (Model Context Protocol) server that exposes the [Dokmatiq DocGen](https://dokmatiq.com) document generation API as tools for AI assistants like Claude.
+MCP (Model Context Protocol) server that exposes the [Dokmatiq DocGen](https://dokmatiq.com) document generation API as tools for AI assistants like Codex, Claude Code, Claude Desktop, Cursor, Continue, Cline, and Hermes.
+
+Use it to generate PDFs, DOCX/ODT documents, Excel workbooks, invoices, e-invoices (ZUGFeRD/XRechnung/Factur-X), receipt exports, signed PDFs, PDF forms, and documents on company letterhead (Briefpapier/Firmenpapier).
 
 ## Setup
 
@@ -14,8 +16,12 @@ MCP (Model Context Protocol) server that exposes the [Dokmatiq DocGen](https://d
 ### Installation
 
 ```bash
-pip install dokmatiq-docgen-mcp
+python3.11 -m pip install --user dokmatiq-docgen-mcp
 ```
+
+The package requires Python 3.11 or newer. On macOS, the system or Xcode-provided `python3` can be too old; use Homebrew Python, pyenv, uv, or another Python 3.11+ runtime if `pip` cannot find a compatible package.
+
+`pip install --user` commonly installs the `docgen-mcp` command into `~/.local/bin`. If your MCP client cannot find `docgen-mcp`, add `~/.local/bin` to `PATH` or use the absolute command path in your MCP config.
 
 Or install from source:
 
@@ -46,7 +52,7 @@ Add to your Claude Desktop config (`~/Library/Application Support/Claude/claude_
 {
   "mcpServers": {
     "docgen": {
-      "command": "docgen-mcp",
+      "command": "/Users/you/.local/bin/docgen-mcp",
       "env": {
         "DOCGEN_API_KEY": "dk_live_xxx"
       }
@@ -78,6 +84,18 @@ claude mcp add docgen -- docgen-mcp
 ```
 
 Set the API key in your environment or `.env` file.
+
+## Usage with Codex
+
+Install the companion skill:
+
+```bash
+python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py \
+  --repo dokmatiq/docgen-sdks \
+  --path plugin/skills/dokmatiq-docgen
+```
+
+Then configure an MCP server named `docgen` using either `docgen-mcp`, an absolute path such as `/Users/you/.local/bin/docgen-mcp`, or `uvx dokmatiq-docgen-mcp`. Make sure `DOCGEN_API_KEY` is available to the server process.
 
 ## Usage with Hermes
 

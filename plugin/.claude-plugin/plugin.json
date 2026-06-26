@@ -1,7 +1,7 @@
 {
   "name": "dokmatiq-docgen",
   "version": "0.1.0",
-  "description": "Document generation with stationery overlay, e-invoicing (ZUGFeRD/XRechnung), Excel, PDF signing, and AI receipt recognition for Claude Code. Bundles the Dokmatiq DocGen MCP server (40 tools) with a triggering skill.",
+  "description": "Document generation with stationery/letterhead overlay, e-invoicing (ZUGFeRD/XRechnung/Factur-X), Excel, PDF signing, and AI receipt recognition for Codex and Claude Code. Bundles the Dokmatiq DocGen MCP server (40 tools) with a triggering skill.",
   "author": {
     "name": "Dokmatiq",
     "url": "https://dokmatiq.com"
@@ -11,12 +11,21 @@
   "license": "MIT",
   "keywords": [
     "pdf",
+    "codex-skill",
+    "claude-code-plugin",
+    "mcp-server",
     "docx",
     "excel",
     "zugferd",
     "xrechnung",
+    "factur-x",
     "e-invoice",
+    "electronic-invoice",
     "rechnung",
+    "e-rechnung",
+    "briefpapier",
+    "firmenpapier",
+    "letterhead",
     "receipt-recognition",
     "beleg",
     "datev",

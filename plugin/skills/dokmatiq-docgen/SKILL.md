@@ -1,9 +1,9 @@
 ---
-name: docgen
-description: Use this skill when the user wants to generate, transform, or analyze documents — including PDF, DOCX, ODT, or Excel/XLSX files — with optional stationery overlay (Briefpapier/letterhead branding applied to generated PDFs). Covers e-invoicing (ZUGFeRD, XRechnung, Factur-X, EN 16931), digital PDF signatures with PKCS#12 certificates, PDF operations (merge, split, rotate, PDF/A conversion, form filling, metadata, text extraction), Excel workbook generation from JSON or CSV with formulas and styling, and AI-powered receipt/invoice recognition (vendor, totals, line items, VAT breakdown, German bookkeeping codes SKR03/SKR04, DATEV-compatible CSV export). Trigger keywords include PDF, DOCX, ODT, Excel, XLSX, Rechnung, Invoice, ZUGFeRD, XRechnung, Beleg, Spesen, Quittung, Stationery, Briefpapier, Letterhead, Wasserzeichen, watermark, sign PDF, fill form, OCR receipt, DATEV, expense report, Buchhaltung. Requires the dokmatiq-docgen MCP server to be configured in the active MCP client and a valid DOCGEN_API_KEY to be available to that server.
+name: dokmatiq-docgen
+description: Dokmatiq DocGen skill for Codex, Claude Code, and MCP-enabled AI assistants. Use this skill when the user wants to generate, transform, or analyze documents — including PDF, DOCX, ODT, or Excel/XLSX files — with optional stationery overlay (Briefpapier/letterhead/company letterhead branding applied to generated PDFs). Covers e-invoicing (ZUGFeRD, XRechnung, Factur-X, EN 16931), digital PDF signatures with PKCS#12 certificates, PDF operations (merge, split, rotate, PDF/A conversion, form filling, metadata, text extraction), Excel workbook generation from JSON or CSV with formulas and styling, and AI-powered receipt/invoice recognition (vendor, totals, line items, VAT breakdown, German bookkeeping codes SKR03/SKR04, DATEV-compatible CSV export). Trigger keywords include Dokmatiq, DocGen, PDF, DOCX, ODT, Excel, XLSX, Rechnung, Invoice, E-Rechnung, e-invoice, electronic invoice, ZUGFeRD, XRechnung, Factur-X, Beleg, Spesen, Quittung, Stationery, Briefpapier, Firmenpapier, company letterhead, Letterhead, Wasserzeichen, watermark, sign PDF, fill form, OCR receipt, DATEV, expense report, Buchhaltung. Requires the dokmatiq-docgen MCP server to be configured in the active MCP client and a valid DOCGEN_API_KEY to be available to that server.
 ---
 
-# DocGen — Document Generation, Excel & Receipt Recognition
+# Dokmatiq DocGen — Document Generation, Excel & Receipt Recognition
 
 Generate professional PDF, DOCX, ODT documents and Excel spreadsheets from HTML/Markdown with templates, tables, QR codes, e-invoicing (ZUGFeRD/XRechnung), digital signatures, AI-powered receipt recognition, and more.
 
@@ -15,8 +15,10 @@ This skill requires the Dokmatiq DocGen MCP server to be configured in the MCP c
 2. Install the MCP server:
 
 ```bash
-pip install dokmatiq-docgen-mcp
+python3.11 -m pip install --user dokmatiq-docgen-mcp
 ```
+
+The MCP server requires Python 3.11 or newer. If the `docgen-mcp` command is installed into `~/.local/bin`, make sure that directory is on `PATH` for the MCP client, or use the absolute command path in the client configuration.
 
 3. Make the API key available to the MCP server, either through the client config or the process environment:
 
