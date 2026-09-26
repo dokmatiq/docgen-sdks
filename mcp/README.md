@@ -30,6 +30,15 @@ cd mcp
 pip install -e .
 ```
 
+### Running tests
+
+From the repository root, use the checked-in lockfile to install the MCP server
+and run its stdio/client smoke tests:
+
+```bash
+uv run --project mcp python -m unittest discover -s mcp/tests -v
+```
+
 ### Configuration
 
 Set your API key as an environment variable:

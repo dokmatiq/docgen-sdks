@@ -15,14 +15,14 @@ import sys
 from pathlib import Path
 from typing import Any
 
-from mcp.server.fastmcp import FastMCP
+from mcp.server.mcpserver import MCPServer
 
 # Lazy-init the DocGen client on first tool call
 _client = None
 
 logger = logging.getLogger("docgen-mcp")
 
-mcp = FastMCP("DocGen")
+mcp = MCPServer("DocGen")
 
 
 def _get_client():
